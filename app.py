@@ -2,9 +2,6 @@ import streamlit as st
 from textblob import TextBlob
 import nltk
 nltk.download('punkt')
-nltk.download('brown')
-nltk.download('wordnet')
-nltk.download('averaged_perceptron_tagger')
 import csv
 import os
 import random
@@ -13,6 +10,15 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
+import nltk
+
+# Safe-check and download only if missing
+required_corpora = ['punkt', 'wordnet', 'brown', 'averaged_perceptron_tagger']
+for corpus in required_corpora:
+    try:
+        nltk.data.find(corpus)
+    except LookupError:
+        nltk.download(corpus)
 
 
 # Sample behavioral interview questions
