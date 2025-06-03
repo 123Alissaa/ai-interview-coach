@@ -8,14 +8,6 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# ✅ Ensure necessary NLTK corpora are downloaded
-required_corpora = ['punkt', 'wordnet', 'brown', 'averaged_perceptron_tagger']
-for corpus in required_corpora:
-    try:
-        nltk.data.find(corpus)
-    except LookupError:
-        nltk.download(corpus)
-
 # Sample behavioral interview questions
 sample_questions = [
     "Tell me about a time you faced a conflict at work and how you dealt with it.",

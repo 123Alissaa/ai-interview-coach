@@ -1,0 +1,4 @@
+punkt
+wordnet
+brown
+averaged_perceptron_tagger
