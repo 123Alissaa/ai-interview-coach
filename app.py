@@ -4,7 +4,7 @@ import csv
 import os
 import random
 from datetime import datetime
-import ollama
+#import ollama
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -53,7 +53,7 @@ if question:
         st.write(f"Tone Positivity: {positivity_score}/5 (polarity: {polarity:.2f})")
 
         # Generate feedback from local model via Ollama
-        try:
+        """try:
             gpt_response = ollama.chat(
                 model='mistral',
                 messages=[
@@ -67,7 +67,7 @@ if question:
         except Exception as e:
             ai_feedback = "Error fetching feedback."
             st.error(f"❌ Error fetching AI feedback: {e}")
-
+"""
         # Log session
         log_data = {
             "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
