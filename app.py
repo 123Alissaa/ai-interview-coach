@@ -10,6 +10,14 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
+import nltk
+
+
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
 # Sample behavioral interview questions
 sample_questions = [
     "Tell me about a time you faced a conflict at work and how you dealt with it.",
