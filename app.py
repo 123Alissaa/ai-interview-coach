@@ -2,6 +2,9 @@ import streamlit as st
 from textblob import TextBlob
 import nltk
 nltk.download('punkt')
+nltk.download('brown')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
 import csv
 import os
 import random
@@ -10,13 +13,7 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import nltk
 
-
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
 
 # Sample behavioral interview questions
 sample_questions = [
