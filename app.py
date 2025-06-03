@@ -1,25 +1,20 @@
 import streamlit as st
 from textblob import TextBlob
 import nltk
-nltk.download('punkt')
 import csv
 import os
 import random
 from datetime import datetime
-#import ollama
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import nltk
-
-# Safe-check and download only if missing
+# ✅ Ensure necessary NLTK corpora are downloaded
 required_corpora = ['punkt', 'wordnet', 'brown', 'averaged_perceptron_tagger']
 for corpus in required_corpora:
     try:
         nltk.data.find(corpus)
     except LookupError:
         nltk.download(corpus)
-
 
 # Sample behavioral interview questions
 sample_questions = [
@@ -47,7 +42,7 @@ if question:
     response = st.text_area("Your Response:")
     confidence = st.slider("How confident did you feel answering?", 1, 5, 3)
 
-    if st.button("Analyze"):        
+    if st.button("Analyze"):
         blob = TextBlob(response)
         polarity = blob.sentiment.polarity
         word_count = len(blob.words)
@@ -65,22 +60,6 @@ if question:
         st.write(f"Length Appropriateness: {length_score}/5 ({word_count} words)")
         st.write(f"Tone Positivity: {positivity_score}/5 (polarity: {polarity:.2f})")
 
-        # Generate feedback from local model via Ollama
-        """try:
-            gpt_response = ollama.chat(
-                model='mistral',
-                messages=[
-                    {"role": "system", "content": "You are a helpful and supportive interview coach."},
-                    {"role": "user", "content": f"Give constructive and encouraging feedback for this interview answer: {response}"}
-                ]
-            )
-            ai_feedback = gpt_response['message']['content']
-            st.subheader("🧠 AI Feedback")
-            st.write(ai_feedback)
-        except Exception as e:
-            ai_feedback = "Error fetching feedback."
-            st.error(f"❌ Error fetching AI feedback: {e}")
-"""
         # Log session
         log_data = {
             "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -90,8 +69,7 @@ if question:
             "Clarity Score": clarity_score,
             "Length Score": length_score,
             "Positivity Score": positivity_score,
-            "Polarity": polarity,
-            "Feedback": ai_feedback
+            "Polarity": polarity
         }
 
         file_exists = os.path.isfile("session_log.csv")
@@ -120,8 +98,8 @@ if os.path.isfile("session_log.csv"):
     st.dataframe(df_log.reset_index(drop=True))
 
     # Download CSV
-    csv = df_log.to_csv(index=False).encode('utf-8')
-    st.download_button("📥 Download Log as CSV", csv, "interview_log.csv", "text/csv")
+    csv_data = df_log.to_csv(index=False).encode('utf-8')
+    st.download_button("📥 Download Log as CSV", csv_data, "interview_log.csv", "text/csv")
 
     # Visualize average scores
     st.subheader("📈 Score Trends")
