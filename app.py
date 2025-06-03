@@ -1,5 +1,7 @@
 import streamlit as st
 from textblob import TextBlob
+import nltk
+nltk.download('punkt')
 import csv
 import os
 import random
