@@ -1,6 +1,16 @@
 import streamlit as st
-from textblob import TextBlob
 import nltk
+
+# Ensure required corpora are downloaded at runtime
+# Ensure NLTK corpora are downloaded in hosted environments
+try:
+    from textblob import TextBlob
+    _ = TextBlob("test").words  # Force corpus access
+except:
+    import nltk_downloader
+
+
+from textblob import TextBlob
 import csv
 import os
 import random
